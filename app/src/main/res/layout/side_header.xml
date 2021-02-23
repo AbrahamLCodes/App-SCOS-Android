@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="#9099A5"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_empresa_scos" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica"
+        android:padding="10dp"
+        android:shadowDx="-3"
+        android:shadowDy="-3"
+        android:shadowRadius="1"
+        android:text="Nombre de la App"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>
