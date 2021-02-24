@@ -8,12 +8,14 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
+    private lateinit var appbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +26,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-                R.id.toggleImg -> {
-                    openDrawer()
-                }
                 R.id.fab -> {
                     makeToast("Fab Clicked", true)
                 }
@@ -42,9 +41,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
             R.id.item2 -> {
                 makeToast("Item 2", true)
             }
-            R.id.item3 -> {
-                makeToast("Item 3", true)
-            }
+
         }
         return true
     }
@@ -66,13 +63,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
     }
 
     private fun initComponents() {
-        val toggleImg = findViewById<ImageView>(R.id.toggleImg)
+        val bar = findViewById<MaterialToolbar>(R.id.topAppBar)
         val sideMenu = findViewById<NavigationView>(R.id.sideMenu)
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         drawer = findViewById(R.id.drawer)
-
+        bar.setNavigationOnClickListener {
+            openDrawer()
+        }
         sideMenu.bringToFront() //Esta línea hace que el SideMenu sea clickeable
-        toggleImg.setOnClickListener(this)
         sideMenu.setNavigationItemSelectedListener(this)
         fab.setOnClickListener(this)
     }
