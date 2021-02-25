@@ -1,5 +1,6 @@
 package scos.app.bitacora
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NavigationView.O
             when (v.id) {
                 R.id.fab -> {
                     makeToast("Fab Clicked", true)
+                    startActivity(Intent(this,FormProblem::class.java))
                 }
             }
         }
