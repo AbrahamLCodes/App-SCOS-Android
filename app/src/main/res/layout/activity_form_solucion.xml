@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".forms.FormSolucionActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/red_gradiant"
+        android:fontFamily="@font/helvetica"
+        app:navigationIcon="@drawable/arrow_back_24"
+        app:navigationIconTint="@color/white"
+        app:title="Registro de solución"
+        app:titleTextColor="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/helvetica"
+        android:padding="10dp"
+        android:text="Datos para después de la solución"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/inputDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_input"
+                android:fontFamily="@font/helvetica"
+                android:gravity="top"
+                android:hint="Descripcion de la solución"
+                android:inputType="text|textMultiLine"
+                android:lines="10"
+                android:padding="10dp"
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/selectImg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoLink="phone"
+                    android:fontFamily="@font/helvetica"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/link1"
+                    android:textColor="#00BCD4" />
+
+                <TextView
+                    android:id="@+id/takeImg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:autoLink="phone"
+                    android:fontFamily="@font/helvetica"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/link2"
+                    android:textColor="#00BCD4" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_predet_img" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSolucion"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/helvetica"
+                android:text="Registrar solución"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

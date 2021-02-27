@@ -16,7 +16,6 @@
         app:headerLayout="@layout/side_header"
         app:menu="@menu/sidemenu" />
 
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,58 +25,28 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.google.android.material.appbar.AppBarLayout
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="@drawable/red_gradiant">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.google.android.material.appbar.MaterialToolbar
-                        android:id="@+id/topAppBar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="5dp"
-                        app:menu="@menu/contextual_menu"
-                        app:navigationIcon="@drawable/ic_menu_24px"
-                        app:navigationIconTint="@color/white">
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_marginEnd="20dp"
-                            app:srcCompat="@drawable/btn_logo" />
-                    </com.google.android.material.appbar.MaterialToolbar>
-                </RelativeLayout>
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/background_search"
-                android:orientation="vertical">
+                android:background="@drawable/red_gradiant"
+                android:padding="10dp"
+                app:navigationIcon="@drawable/ic_menu_24px"
+                app:navigationIconTint="@color/white">
 
-                <SearchView
+                <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_margin="1dp"
-                    android:queryHint="buscar por tecnico"
-                    android:searchIcon="@drawable/ic_search_24px">
-
-                </SearchView>
-            </LinearLayout>
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:src="@drawable/ic_scos_shape" />
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:background="@drawable/background_list"
                 android:elevation="2dp"
-                android:layout_marginHorizontal="2dp"
                 android:orientation="vertical"
                 android:padding="20dp">
 
@@ -86,24 +55,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/helvetica"
-                    android:text="Registros"
+                    android:padding="10dp"
+                    android:text="Reporte de problemas"
                     android:textAllCaps="true"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="25sp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_height="wrap_content"
-                    android:text="ordernar por"
-                    android:textSize="10sp"
-                    app:iconGravity="textEnd"
-                    android:backgroundTint="#00FFFFFF"
-                    app:icon="@drawable/ic_drop_down_arrow"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_marginBottom="10dp"
-                    app:iconSize="20dp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -112,32 +69,22 @@
                     android:outlineAmbientShadowColor="@color/black">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    </androidx.recyclerview.widget.RecyclerView>
+                        android:layout_height="wrap_content"
+                        android:padding="10dp" />
                 </ScrollView>
-
-
             </LinearLayout>
-
         </LinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|end"
-            android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#DC0606"
-                android:background="@drawable/red_gradiant"
-                android:src="@drawable/add_icon"
-                android:tint="@color/white" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:backgroundTint="#3F51B5"
+            android:src="@drawable/add_icon"
+            android:tint="@color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SCOS App</string>
-    <string name="link1"><u>Añadir Imagen</u></string>
+    <string name="link1"><u>Seleccionar Foto</u></string>
     <string name="link2"><u>Tomar una Foto</u></string>
 </resources>

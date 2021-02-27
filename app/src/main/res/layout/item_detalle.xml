@@ -4,17 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/background_detalle"
         app:cardElevation="3dp"
-        app:strokeWidth="1dp"
         app:strokeColor="@color/black"
-        android:layout_height="match_parent">
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,24 +22,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="1dp"
                 android:layout_margin="3dp"
                 android:orientation="horizontal"
+                android:padding="1dp"
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/falla"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
                     android:fontFamily="@font/helvetica"
-                    android:text="Asunto" />
+                    android:text="Falla" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
+                    android:gravity="end"
                     android:fontFamily="@font/helvetica"
                     android:text="Fecha" />
             </LinearLayout>
@@ -51,23 +50,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/iamge" />
+                app:srcCompat="@drawable/ic_predet_img" />
 
-            <com.google.android.material.button.MaterialButton
+            <TextView
+                android:id="@+id/tecnicoTxt"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Editar"
+                android:text="Técnico/Ingeniero: "
+                android:fontFamily="@font/helvetica"
                 android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/textView4"
-                android:background="@drawable/red_gradiant"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/red_gradiant" />
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
-
-
-
 </LinearLayout>

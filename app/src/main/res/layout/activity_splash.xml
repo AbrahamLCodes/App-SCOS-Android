@@ -6,14 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#E4DDD4"
+    android:background="@drawable/ic_fondosvg"
+    android:gravity="center"
     tools:context=".SplashActivity">
-
-
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/splashart" />
+        android:paddingHorizontal="10dp"
+        app:srcCompat="@drawable/ic_scos_logo" />
 </LinearLayout>
