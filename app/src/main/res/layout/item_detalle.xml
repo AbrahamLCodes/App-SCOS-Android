@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -19,45 +18,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:orientation="horizontal"
-                android:padding="1dp"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/falla"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:fontFamily="@font/helvetica"
-                    android:text="Falla" />
-
-                <TextView
-                    android:id="@+id/fecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:gravity="end"
-                    android:fontFamily="@font/helvetica"
-                    android:text="Fecha" />
-            </LinearLayout>
-
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/imagenItem"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_predet_img" />
 
             <TextView
-                android:id="@+id/tecnicoTxt"
+                android:id="@+id/falla"
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Técnico/Ingeniero: "
+                android:text="Falla: "
                 android:fontFamily="@font/helvetica"
                 android:textColor="@color/black" />
 

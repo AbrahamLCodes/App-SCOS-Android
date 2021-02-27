@@ -41,6 +41,30 @@
                     android:src="@drawable/ic_scos_shape" />
             </com.google.android.material.appbar.MaterialToolbar>
 
+
+            <EditText
+                android:hint="Responsable"
+                android:background="@drawable/shape_input"
+                android:backgroundTint="@color/white"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/helvetica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="24/5/2020"
+                android:id="@+id/fecha"
+                android:textSize="16sp"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/helvetica"
+                android:layout_width="match_parent"
+                android:gravity="end"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -56,7 +80,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/helvetica"
                     android:padding="10dp"
-                    android:text="Reporte de problemas"
+                    android:text="Reporte"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -70,6 +94,8 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler"
+                        android:divider="@android:color/transparent"
+                        android:dividerHeight="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp" />

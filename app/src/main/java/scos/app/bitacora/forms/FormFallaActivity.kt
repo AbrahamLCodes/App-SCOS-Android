@@ -11,24 +11,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import scos.app.bitacora.Falla
+import scos.app.bitacora.MainActivity
 import scos.app.bitacora.R
 
-
-class FormProblemaActivity :
+class FormFallaActivity :
     AppCompatActivity(),
     View.OnClickListener {
 
     private lateinit var inputProblema: TextView
-    private lateinit var inputTecnico: TextView
     private lateinit var inputDesc: TextView
     private lateinit var imagen: ImageView
     private var imagenUpdloaded = false
     private var imageUri: Uri? = null
-
+    private var insert: Boolean? = null
+    private var position: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_form_problema)
+        setContentView(R.layout.activity_form_falla)
         initComponents()
     }
 
@@ -37,12 +38,21 @@ class FormProblemaActivity :
             when (v.id) {
                 R.id.btnSolucion -> {
                     if (checkFields()) {
-                        startActivity(Intent(this, FormSolucionActivity::class.java).apply {
-                            putExtra("falla",inputProblema.text.toString())
-                            putExtra("tecnico",inputTecnico.text.toString())
-                            putExtra("descProblema", inputProblema.text.toString())
-                            putExtra("uriStringProblema", imageUri.toString())
-                        })
+                        if (insert!!) {
+                            MainActivity.fallasList.add(
+                                Falla(
+                                    inputProblema.text.toString(),
+                                    inputDesc.text.toString(),
+                                    imageUri.toString()
+                                )
+                            )
+                        } else {
+                            MainActivity.fallasList[position!!] = Falla(
+                                inputProblema.text.toString(),
+                                inputDesc.text.toString(),
+                                imageUri.toString()
+                            )
+                        }
                         finish()
                     }
                 }
@@ -75,10 +85,6 @@ class FormProblemaActivity :
             makeToast("Introduce el nombre problema")
             inputProblema.requestFocus()
             false
-        } else if (inputTecnico.text.isEmpty()) {
-            makeToast("Introduce el nombre del técnico")
-            inputTecnico.requestFocus()
-            false
         } else if (inputDesc.text.isEmpty()) {
             makeToast("Introduce la descripción del problema")
             inputDesc.requestFocus()
@@ -96,6 +102,13 @@ class FormProblemaActivity :
         Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
     }
 
+    private fun setComponents(position: Int) {
+        val falla = MainActivity.fallasList[position]
+        inputProblema.text = falla.getFalla()
+        inputDesc.text = falla.getFallaDesc()
+        imagen.setImageURI(Uri.parse(falla.getFallaUri()))
+    }
+
     private fun initComponents() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val btnSolucion = findViewById<Button>(R.id.btnSolucion)
@@ -103,9 +116,9 @@ class FormProblemaActivity :
         val takeImg = findViewById<TextView>(R.id.takeImg)
 
         inputProblema = findViewById(R.id.inputProblema)
-        inputTecnico = findViewById(R.id.inputTecnico)
         inputDesc = findViewById(R.id.inputDesc)
         imagen = findViewById(R.id.imagen)
+        insert = intent.getBooleanExtra("insert", false)
 
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
@@ -115,5 +128,10 @@ class FormProblemaActivity :
         btnSolucion.setOnClickListener(this)
         selectImg.setOnClickListener(this)
         takeImg.setOnClickListener(this)
+
+        if (!insert!!) {
+            position = intent.getIntExtra("position", 0)
+            setComponents(position!!)
+        }
     }
 }

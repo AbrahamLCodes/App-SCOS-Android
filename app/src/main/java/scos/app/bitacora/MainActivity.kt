@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import scos.app.bitacora.forms.FormProblemaActivity
+import scos.app.bitacora.forms.FormFallaActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,6 +60,9 @@ class MainActivity :
     override fun onResume() {
         super.onResume()
         setRecyclerData()
+        val fecha = findViewById<TextView>(R.id.fecha)
+        fecha.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
     }
 
     override fun onStart() {
@@ -85,7 +88,9 @@ class MainActivity :
         if (v != null) {
             when (v.id) {
                 R.id.fab -> {
-                    startActivity(Intent(this, FormProblemaActivity::class.java))
+                    startActivity(Intent(this, FormFallaActivity::class.java).apply {
+                        putExtra("insert", true)
+                    })
                 }
             }
         }

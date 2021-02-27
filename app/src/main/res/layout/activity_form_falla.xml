@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".forms.FormProblemaActivity">
+    tools:context=".forms.FormFallaActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -17,15 +17,6 @@
         app:navigationIconTint="@color/white"
         app:title="Registro de fallo"
         app:titleTextColor="@color/white" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/helvetica"
-        android:padding="10dp"
-        android:text="Datos para antes de la solución"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,21 +38,6 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputProblema"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
-                android:hint="Nombre del tecnico"
-                android:padding="10dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputTecnico"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica" />

@@ -1,13 +1,18 @@
 package scos.app.bitacora
 
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import scos.app.bitacora.forms.FormProblemaActivity
+import scos.app.bitacora.forms.FormFallaActivity
+import scos.app.bitacora.forms.ViewFallaActivity
 
 class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -41,55 +46,40 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class FallaViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val fallaTxt: TextView = itemView.findViewById(R.id.falla)
-        private val fechaTxt: TextView = itemView.findViewById(R.id.fecha)
-        private val tecnicoTxt: TextView = itemView.findViewById(R.id.tecnicoTxt)
+        private val itemImagen: ImageView = itemView.findViewById(R.id.imagenItem)
 
         init {
             itemView.setOnClickListener {
-                val position: Int = adapterPosition
-                val intent = Intent(itemView.context, FormProblemaActivity::class.java)
+                val intent = Intent(itemView.context, ViewFallaActivity::class.java)
                 intent.apply {
-                    putExtra("falla", items[position])
+                    putExtra("position",adapterPosition)
                 }
                 itemView.context.startActivity(intent)
             }
             itemView.setOnLongClickListener {
-                val position: Int = adapterPosition
                 MaterialAlertDialogBuilder(itemView.context).setTitle(
                     "Falla: " + fallaTxt.text.toString().toUpperCase()
-                ).setMessage("Que desea hacer?").setNeutralButton("Ver") { _, _ ->
+                ).setMessage("¿Qué desea hacer?").setNeutralButton("Ver") { _, _ ->
                     //En construcción
-                }.setPositiveButton("editar") { _, _ ->
+                }.setPositiveButton("Editar") { _, _ ->
                     //En construcción
-                }.setNegativeButton("elminar") { _, _ ->
-                    //En construcción
+                }.setNegativeButton("Eliminar") { _, _ ->
+                    MainActivity.fallasList.removeAt(adapterPosition)
+                    MainActivity.fallaAdapter = FallaAdapter()
+                    MainActivity.fallaAdapter.submitList(MainActivity.fallasList)
+                    MainActivity.recycler.apply {
+                        layoutManager = GridLayoutManager(context, 1)
+                        adapter = MainActivity.fallaAdapter
+                    }
                 }.show()
                 return@setOnLongClickListener true
             }
         }
 
         fun bind(falla: Falla) {
-
-            val meses = listOf(
-                "Enero,",
-                "Febrero",
-                "Marzo",
-                "Abril",
-                "Mayo",
-                "Junio",
-                "Julio",
-                "Agosto",
-                "Septiembre",
-                "Octubre",
-                "Noviembre",
-                "Diciembre"
-            )
-
-            val hora = falla.getHora() + ":" + falla.getMin() + " "
-            val fecha = falla.getDia() + "/" + meses[falla.getMes().toInt()] + "/" + falla.getAnio()
             fallaTxt.text = falla.getFalla()
-            fechaTxt.text = hora + fecha
-            tecnicoTxt.text = "Técnico/Ingeniero: " + falla.getTecnico()
+            itemImagen.setImageURI(Uri.parse(items[adapterPosition].getFallaUri()))
+            Log.d("URI", falla.getFallaUri())
         }
     }
 }
