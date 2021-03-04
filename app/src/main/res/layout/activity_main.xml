@@ -42,75 +42,50 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
 
-            <EditText
-                android:hint="Responsable"
-                android:background="@drawable/shape_input"
-                android:backgroundTint="@color/white"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textSize="14sp"
-                android:fontFamily="@font/helvetica"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
 
             <TextView
                 android:text="24/5/2020"
                 android:id="@+id/fecha"
-                android:textSize="16sp"
+                android:background="@drawable/background_detalle"
+                android:textSize="20sp"
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/helvetica"
                 android:layout_width="match_parent"
-                android:gravity="end"
-                android:layout_height="wrap_content"/>
+                android:gravity="center"
+                android:layout_height="50dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:layout_marginHorizontal="2dp"
                 android:background="@drawable/background_list"
                 android:elevation="2dp"
                 android:orientation="vertical"
                 android:padding="20dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/helvetica"
-                    android:padding="10dp"
-                    android:text="Reporte"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <ScrollView
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReporteFalla"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="30dp"
+                app:strokeWidth="2dp"
+                android:textColor="@color/black"
+                android:text="Crear un Reporte de Falla"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                />
+                <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:elevation="2dp"
-                    android:outlineAmbientShadowColor="@color/black">
+                    android:layout_height="120dp"
+                    app:strokeWidth="2dp"
+                    android:textColor="@color/black"
+                    android:text="Crear un Reporte de Solucion"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler"
-                        android:divider="@android:color/transparent"
-                        android:dividerHeight="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp" />
-                </ScrollView>
             </LinearLayout>
         </LinearLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="20dp"
-            android:backgroundTint="#3F51B5"
-            android:src="@drawable/add_icon"
-            android:tint="@color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

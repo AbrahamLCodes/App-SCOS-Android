@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wireframing">
 
-        <activity android:name=".forms.ViewFallaActivity"/>
+        <activity android:name=".forms.ViewFallaActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".forms.FormFallaActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"  />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

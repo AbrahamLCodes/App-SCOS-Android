@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -15,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import scos.app.bitacora.forms.FormFallaActivity
@@ -23,7 +25,6 @@ import java.util.*
 
 class MainActivity :
     AppCompatActivity(),
-    View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawer: DrawerLayout
@@ -38,7 +39,7 @@ class MainActivity :
 
     companion object {
         lateinit var recycler: RecyclerView
-        lateinit var fallaAdapter: FallaAdapter
+        //lateinit var fallaAdapter: FallaAdapter
         lateinit var fallasList: MutableList<Falla>
     }
 
@@ -59,7 +60,7 @@ class MainActivity :
 
     override fun onResume() {
         super.onResume()
-        setRecyclerData()
+        //setRecyclerData()
         val fecha = findViewById<TextView>(R.id.fecha)
         fecha.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
@@ -84,17 +85,6 @@ class MainActivity :
         unregisterReceiver(broadcastReceiver)
     }
 
-    override fun onClick(v: View?) {
-        if (v != null) {
-            when (v.id) {
-                R.id.fab -> {
-                    startActivity(Intent(this, FormFallaActivity::class.java).apply {
-                        putExtra("insert", true)
-                    })
-                }
-            }
-        }
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -108,14 +98,14 @@ class MainActivity :
         return true
     }
 
-    fun setRecyclerData() {
+    /*fun setRecyclerData() {
         fallaAdapter = FallaAdapter()
         fallaAdapter.submitList(fallasList)
         recycler.apply {
             layoutManager = GridLayoutManager(context, 1)
             adapter = fallaAdapter
         }
-    }
+    }*/
 
     private fun openDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -135,14 +125,18 @@ class MainActivity :
 
     private fun initComponents() {
         val bar = findViewById<MaterialToolbar>(R.id.topAppBar)
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        recycler = findViewById(R.id.recycler)
+        val btnfalla = findViewById<MaterialButton>(R.id.btnReporteFalla)
+        btnfalla.setOnClickListener {
+            startActivity(Intent(this, FormFallaActivity::class.java).apply {
+                putExtra("insert", true)
+            })
+            Log.d("click","hey")
+        }
         drawer = findViewById(R.id.drawer)
         bar.setNavigationOnClickListener {
             openDrawer()
         }
-        fab.setOnClickListener(this)
         fallasList = ArrayList()
-        setRecyclerData()
+        //setRecyclerData()
     }
 }

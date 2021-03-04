@@ -1,18 +1,25 @@
 package scos.app.bitacora.forms
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.Window
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import scos.app.bitacora.Falla
+import scos.app.bitacora.FallaAdapter
 import scos.app.bitacora.MainActivity
+import scos.app.bitacora.MainActivity.Companion.fallasList
+import scos.app.bitacora.MainActivity.Companion.recycler
 import scos.app.bitacora.R
 
 class FormFallaActivity :
@@ -32,37 +39,68 @@ class FormFallaActivity :
         setContentView(R.layout.activity_form_falla)
         initComponents()
     }
+    companion object {
+        lateinit var recycler: RecyclerView
+        lateinit var fallaAdapter: FallaAdapter
+        lateinit var fallasList: MutableList<Falla>
+        lateinit var dialog: Dialog
+
+    }
 
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-                R.id.btnSolucion -> {
-                    if (checkFields()) {
-                        if (insert!!) {
-                            MainActivity.fallasList.add(
-                                Falla(
+                R.id.btnProblema -> {
+                    dialog = Dialog(this)
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    dialog.setCancelable(false)
+                    dialog.setContentView(R.layout.dialog_detallle)
+                    val yesBtn = dialog.findViewById(R.id.yesBtn) as Button
+                    val noBtn = dialog.findViewById(R.id.noBtn) as Button
+                    val selecImg = dialog.findViewById(R.id.selectImg) as TextView
+                    imagen = dialog.findViewById(R.id.imagen) as ImageView
+                    inputProblema = dialog.findViewById(R.id.inputproblema) as EditText
+                    inputDesc = dialog.findViewById(R.id.textArea_information) as EditText
+                    yesBtn.setOnClickListener {
+                        if (checkFields()) {
+                            Log.d("lol","dsfafdasfasfafdasf"+insert)
+                            if (insert!!) {
+                                fallasList.add(
+                                    Falla(
+                                        inputProblema.text.toString(),
+                                        inputDesc.text.toString(),
+                                        imageUri.toString()
+                                    )
+                                )
+                                dialog.dismiss()
+                                setRecyclerData()
+                            } else {
+                                fallasList[position!!] = Falla(
                                     inputProblema.text.toString(),
                                     inputDesc.text.toString(),
                                     imageUri.toString()
                                 )
-                            )
-                        } else {
-                            MainActivity.fallasList[position!!] = Falla(
-                                inputProblema.text.toString(),
-                                inputDesc.text.toString(),
-                                imageUri.toString()
-                            )
+                            }
                         }
-                        finish()
+
                     }
-                }
-                R.id.selectImg -> {
-                    selectImage()
-                }
-                R.id.takeImg -> {
-                    selectImage()
+                    noBtn.setOnClickListener{
+                        dialog.dismiss()
+                    }
+                    selecImg.setOnClickListener {
+                        selectImage()
+                    }
+                    dialog.show()
                 }
             }
+        }
+    }
+    fun setRecyclerData() {
+        fallaAdapter = FallaAdapter()
+        fallaAdapter.submitList(fallasList)
+        recycler.apply {
+            layoutManager = GridLayoutManager(context, 1)
+            adapter = fallaAdapter
         }
     }
 
@@ -103,21 +141,25 @@ class FormFallaActivity :
     }
 
     private fun setComponents(position: Int) {
-        val falla = MainActivity.fallasList[position]
-        inputProblema.text = falla.getFalla()
-        inputDesc.text = falla.getFallaDesc()
-        imagen.setImageURI(Uri.parse(falla.getFallaUri()))
+        val falla = fallasList[position]
+    inputProblema.text = falla.getFalla()
+    inputDesc.text = falla.getFallaDesc()
+    imagen.setImageURI(Uri.parse(falla.getFallaUri()))
     }
 
     private fun initComponents() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val btnSolucion = findViewById<Button>(R.id.btnSolucion)
+        val btnProblema = findViewById<Button>(R.id.btnProblema)
         val selectImg = findViewById<TextView>(R.id.selectImg)
         val takeImg = findViewById<TextView>(R.id.takeImg)
+        val Asunto = findViewById<EditText>(R.id.inputAsunto)
+        val tecnico = findViewById<EditText>(R.id.inputTecnico)
+        recycler = findViewById(R.id.recycler)
+        fallasList = ArrayList()
 
-        inputProblema = findViewById(R.id.inputProblema)
-        inputDesc = findViewById(R.id.inputDesc)
-        imagen = findViewById(R.id.imagen)
+        //inputProblema = findViewById(R.id.inputProblema)
+        //inputDesc = findViewById(R.id.inputDesc)
+
         insert = intent.getBooleanExtra("insert", false)
 
         setSupportActionBar(toolbar)
@@ -125,13 +167,15 @@ class FormFallaActivity :
             finish()
         }
 
-        btnSolucion.setOnClickListener(this)
+        btnProblema.setOnClickListener(this)
         selectImg.setOnClickListener(this)
         takeImg.setOnClickListener(this)
+        Log.d("lol","dsfafdasfasfafdasf"+insert)
 
         if (!insert!!) {
             position = intent.getIntExtra("position", 0)
             setComponents(position!!)
         }
+        setRecyclerData()
     }
 }

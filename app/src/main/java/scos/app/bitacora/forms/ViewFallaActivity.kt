@@ -14,7 +14,7 @@ class ViewFallaActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var nombre: TextView
     private lateinit var desc: TextView
-    private lateinit var imagen: ImageView
+    //private lateinit var imagen: ImageView
     private var position: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class ViewFallaActivity : AppCompatActivity(), View.OnClickListener {
 
         nombre.text = falla.getFalla()
         desc.text = falla.getFallaDesc()
-        imagen.setImageURI(Uri.parse(falla.getFallaUri()))
+       // imagen.setImageURI(Uri.parse(falla.getFallaUri()))
     }
 
     private fun initComponents() {
@@ -55,7 +55,7 @@ class ViewFallaActivity : AppCompatActivity(), View.OnClickListener {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         nombre = findViewById(R.id.nombre)
         desc = findViewById(R.id.desc)
-        imagen = findViewById(R.id.imagen)
+       // imagen = findViewById(R.id.imagen)
         val editar = findViewById<ImageView>(R.id.editar)
 
         setSupportActionBar(toolbar)

@@ -47,12 +47,13 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class FallaViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val fallaTxt: TextView = itemView.findViewById(R.id.falla)
         private val itemImagen: ImageView = itemView.findViewById(R.id.imagenItem)
+        private val descrTxt: TextView = itemView.findViewById(R.id.txtdescription)
 
         init {
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, ViewFallaActivity::class.java)
+                val intent = Intent(itemView.context, FormFallaActivity::class.java)
                 intent.apply {
-                    putExtra("position",adapterPosition)
+                    putExtra("position", adapterPosition)
                 }
                 itemView.context.startActivity(intent)
             }
@@ -64,22 +65,24 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }.setPositiveButton("Editar") { _, _ ->
                     //En construcción
                 }.setNegativeButton("Eliminar") { _, _ ->
-                    MainActivity.fallasList.removeAt(adapterPosition)
-                    MainActivity.fallaAdapter = FallaAdapter()
-                    MainActivity.fallaAdapter.submitList(MainActivity.fallasList)
-                    MainActivity.recycler.apply {
+                    FormFallaActivity.fallasList.removeAt(adapterPosition)
+                    FormFallaActivity.fallaAdapter = FallaAdapter()
+                    FormFallaActivity.fallaAdapter.submitList(FormFallaActivity.fallasList)
+                    FormFallaActivity.recycler.apply {
                         layoutManager = GridLayoutManager(context, 1)
-                        adapter = MainActivity.fallaAdapter
+                        adapter = FormFallaActivity.fallaAdapter
                     }
                 }.show()
                 return@setOnLongClickListener true
-            }
+                 }
         }
 
         fun bind(falla: Falla) {
             fallaTxt.text = falla.getFalla()
+            descrTxt.text = falla.getFallaDesc()
             itemImagen.setImageURI(Uri.parse(items[adapterPosition].getFallaUri()))
             Log.d("URI", falla.getFallaUri())
         }
     }
 }
+
