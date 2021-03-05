@@ -1,20 +1,21 @@
 package scos.app.bitacora.adapters
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import scos.app.bitacora.modelos.Falla
 import scos.app.bitacora.R
+import scos.app.bitacora.forms.FallaDialogCustom
 import scos.app.bitacora.forms.ReporteActivity
+import scos.app.bitacora.modelos.Falla
+
 
 class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -69,7 +70,8 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun editar() {
-            Toast.makeText(itemView.context, "En construccion", Toast.LENGTH_SHORT).show()
+            FallaDialogCustom(adapterPosition, items[adapterPosition])
+                .show(supportFragmentManager(), "Editar falla")
         }
 
         private fun eliminar() {
@@ -83,13 +85,17 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun deleteAndUpdateUI() {
-            items.removeAt(adapterPosition)
+            ReporteActivity.fallasList.removeAt(adapterPosition)
             ReporteActivity.fallaAdapter = FallaAdapter()
-            ReporteActivity.fallaAdapter.submitList(items)
+            ReporteActivity.fallaAdapter.submitList(ReporteActivity.fallasList)
             ReporteActivity.recyclerMain.apply {
                 layoutManager = GridLayoutManager(itemView.context, 1)
                 adapter = ReporteActivity.fallaAdapter
             }
+        }
+
+        private fun supportFragmentManager(): FragmentManager {
+            return (itemView.context as FragmentActivity).supportFragmentManager
         }
 
         fun bind(falla: Falla) {
