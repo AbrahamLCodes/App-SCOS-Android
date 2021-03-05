@@ -3,19 +3,20 @@ package scos.app.bitacora.forms
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import scos.app.bitacora.R
 import scos.app.bitacora.adapters.FallaAdapter
-import scos.app.bitacora.dialogs.FallaDialogCustom
+import scos.app.bitacora.dialogs.SolucionDialogCustom
 import scos.app.bitacora.modelos.Falla
 
-class ReporteActivity :
-    AppCompatActivity(),
-    View.OnClickListener {
+class FormSolucionActivity: AppCompatActivity(), View.OnClickListener{
     private var imagenUpdloaded = false
     private var insert: Boolean? = null
     private var position: Int? = null
@@ -23,7 +24,7 @@ class ReporteActivity :
     private lateinit var inputProblema: TextView
     private lateinit var inputDesc: TextView
     private lateinit var imagen: ImageView
-    private lateinit var dialog: FallaDialogCustom
+    private lateinit var dialog: SolucionDialogCustom
 
 
     companion object {
@@ -34,7 +35,7 @@ class ReporteActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reporte)
+        setContentView(R.layout.activity_form_solucion)
         initComponents()
     }
 
@@ -47,13 +48,11 @@ class ReporteActivity :
             }
         }
     }
-
-    private fun buildDialog() {
-        dialog = FallaDialogCustom(null, null)
+    private fun buildDialog(){
+        dialog = SolucionDialogCustom(null, null)
         dialog.show(supportFragmentManager, "custom dialog")
     }
-
-    private fun setRecyclerData() {
+    private fun setRecyclerData(){
         fallaAdapter = FallaAdapter()
         fallaAdapter.submitList(fallasList)
         recyclerMain.apply {
@@ -64,7 +63,6 @@ class ReporteActivity :
         // Reset collections and validations to perform a new record
         imagenUpdloaded = false
     }
-
     private fun makeToast(mensaje: String) {
         Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
     }
@@ -82,7 +80,7 @@ class ReporteActivity :
         val selectImg = findViewById<TextView>(R.id.selectImg)
         val takeImg = findViewById<TextView>(R.id.takeImg)
 
-        recyclerMain = findViewById(R.id.recycler)
+       recyclerMain = findViewById(R.id.recycler)
         fallasList = ArrayList()
 
         insert = intent.getBooleanExtra("insert", false)

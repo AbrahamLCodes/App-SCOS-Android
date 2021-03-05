@@ -1,4 +1,4 @@
-package scos.app.bitacora.forms
+package scos.app.bitacora.dialogs
 
 import android.app.Activity
 import android.content.Intent
@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import scos.app.bitacora.R
 import scos.app.bitacora.adapters.FallaAdapter
 import scos.app.bitacora.adapters.ImagenAdapter
+import scos.app.bitacora.forms.ReporteActivity
 import scos.app.bitacora.modelos.Falla
 import java.lang.Exception
 

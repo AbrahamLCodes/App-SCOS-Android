@@ -17,6 +17,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
 import scos.app.bitacora.R
+import scos.app.bitacora.forms.FormSolucionActivity
 import scos.app.bitacora.forms.ReporteActivity
 import scos.app.bitacora.modelos.Falla
 import java.text.SimpleDateFormat
@@ -38,7 +39,6 @@ class MainActivity :
 
     companion object {
         lateinit var recycler: RecyclerView
-        //lateinit var fallaAdapter: FallaAdapter
         lateinit var fallasList: MutableList<Falla>
     }
 
@@ -59,7 +59,6 @@ class MainActivity :
 
     override fun onResume() {
         super.onResume()
-        //setRecyclerData()
         val fecha = findViewById<TextView>(R.id.fecha)
         fecha.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
@@ -97,14 +96,7 @@ class MainActivity :
         return true
     }
 
-    /*fun setRecyclerData() {
-        fallaAdapter = FallaAdapter()
-        fallaAdapter.submitList(fallasList)
-        recycler.apply {
-            layoutManager = GridLayoutManager(context, 1)
-            adapter = fallaAdapter
-        }
-    }*/
+
 
     private fun openDrawer() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -125,6 +117,12 @@ class MainActivity :
     private fun initComponents() {
         val bar = findViewById<MaterialToolbar>(R.id.topAppBar)
         val btnfalla = findViewById<MaterialButton>(R.id.btnReporteFalla)
+        val btnSolucion = findViewById(R.id.btnReporteSolucion) as MaterialButton
+        btnSolucion.setOnClickListener {
+            startActivity(Intent(this, FormSolucionActivity::class.java).apply {
+                putExtra("insert", true)
+            })
+        }
         btnfalla.setOnClickListener {
             startActivity(Intent(this, ReporteActivity::class.java).apply {
                 putExtra("insert", true)

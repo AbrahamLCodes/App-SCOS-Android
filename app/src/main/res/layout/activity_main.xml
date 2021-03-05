@@ -77,6 +77,7 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 />
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReporteSolucion"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     app:strokeWidth="2dp"

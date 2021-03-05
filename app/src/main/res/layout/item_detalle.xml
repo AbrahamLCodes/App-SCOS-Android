@@ -25,18 +25,21 @@
 
             <TextView
                 android:id="@+id/falla"
+                android:layout_margin="3dp"
                 android:layout_weight="1.2"
-                style="?attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1."
+                android:text="problema 1"
+                android:textSize="10sp"
+                android:gravity="center"
                 android:fontFamily="@font/helvetica"
                 android:textColor="@color/black" />
 
             <TextView
-                android:padding="10dp"
+                android:padding="6dp"
                 android:id="@+id/txtdescription"
                 android:layout_weight=".8"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM"

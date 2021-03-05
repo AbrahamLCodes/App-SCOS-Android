@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".forms.ReporteActivity">
+    tools:context=".forms.FormSolucionActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -15,7 +15,7 @@
         android:fontFamily="@font/helvetica"
         app:navigationIcon="@drawable/arrow_back_24"
         app:navigationIconTint="@color/white"
-        app:title="Registro de fallo"
+        app:title="Registro de Solucion"
         app:titleTextColor="@color/white" />
 
     <ScrollView
@@ -88,12 +88,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:fontFamily="@font/helvetica"
-                    android:text="añadir un problema"
+                    android:text="añadir una solucion"
                     android:textSize="12sp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Problemas:"
+                    android:text="Soluciones:"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:layout_marginVertical="10dp"

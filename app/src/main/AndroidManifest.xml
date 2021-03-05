@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wireframing">
 
-        <activity android:name=".forms.FormFallaActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".forms.ReporteActivity" />
+        <activity android:name=".forms.FormSolucionActivity"/>
         <activity android:name=".mainactivities.MainActivity"  />
         <activity android:name=".mainactivities.SplashActivity">
             <intent-filter>

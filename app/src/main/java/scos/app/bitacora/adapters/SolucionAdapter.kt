@@ -12,17 +12,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import scos.app.bitacora.R
-import scos.app.bitacora.dialogs.FallaDialogCustom
-import scos.app.bitacora.forms.ReporteActivity
-import scos.app.bitacora.modelos.Falla
+import scos.app.bitacora.dialogs.SolucionDialogCustom
+import scos.app.bitacora.forms.FormSolucionActivity
+import scos.app.bitacora.modelos.Solucion
 
-
-class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private lateinit var items: MutableList<Falla>
-
+class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private lateinit var items: MutableList<Solucion>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return FallaViewHolder(
+        return SolucionViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_detalle,
                 parent,
@@ -33,7 +30,7 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is FallaViewHolder -> {
+            is SolucionAdapter.SolucionViewHolder -> {
                 holder.bind(items[position])
             }
         }
@@ -42,12 +39,7 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         return items.size
     }
-
-    fun submitList(fallas: List<Falla>) {
-        items = ArrayList(fallas)
-    }
-
-    inner class FallaViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SolucionViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val fallaTxt: TextView = itemView.findViewById(R.id.falla)
         private val itemImagen: ImageView = itemView.findViewById(R.id.imagenItem)
         private val descrTxt: TextView = itemView.findViewById(R.id.txtdescription)
@@ -70,7 +62,7 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun editar() {
-            FallaDialogCustom(adapterPosition, items[adapterPosition])
+            SolucionDialogCustom(adapterPosition, items[adapterPosition])
                 .show(supportFragmentManager(), "Editar falla")
         }
 
@@ -85,12 +77,12 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun deleteAndUpdateUI() {
-            ReporteActivity.fallasList.removeAt(adapterPosition)
-            ReporteActivity.fallaAdapter = FallaAdapter()
-            ReporteActivity.fallaAdapter.submitList(ReporteActivity.fallasList)
-            ReporteActivity.recyclerMain.apply {
+            FormSolucionActivity.fallasList.removeAt(adapterPosition)
+            FormSolucionActivity.fallaAdapter = FallaAdapter()
+            FormSolucionActivity.fallaAdapter.submitList(FormSolucionActivity.fallasList)
+            FormSolucionActivity.recyclerMain.apply {
                 layoutManager = GridLayoutManager(itemView.context, 1)
-                adapter = ReporteActivity.fallaAdapter
+                adapter = FormSolucionActivity.fallaAdapter
             }
         }
 
@@ -98,11 +90,11 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return (itemView.context as FragmentActivity).supportFragmentManager
         }
 
-        fun bind(falla: Falla) {
-            fallaTxt.text = falla.getFalla()
-            descrTxt.text = falla.getFallaDesc()
+        fun bind(solucion: Solucion) {
+            fallaTxt.text = solucion.getSolucion()
+            descrTxt.text = solucion.getSolucionDescripcion()
             itemImagen.setImageURI(Uri.parse(items[adapterPosition].getUris()[0]))
         }
     }
-}
 
+}
