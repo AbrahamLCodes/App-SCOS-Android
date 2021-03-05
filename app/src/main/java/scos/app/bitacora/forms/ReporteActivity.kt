@@ -11,6 +11,7 @@ import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +25,6 @@ import java.lang.Exception
 class ReporteActivity :
     AppCompatActivity(),
     View.OnClickListener {
-
-
     private var imagenUpdloaded = false
     private var insert: Boolean? = null
     private var position: Int? = null
@@ -33,13 +32,15 @@ class ReporteActivity :
     private lateinit var inputProblema: TextView
     private lateinit var inputDesc: TextView
     private lateinit var imagen: ImageView
+    private lateinit var dialog: FallaDialogCustom
+
 
     companion object {
         lateinit var fallaAdapter: FallaAdapter
-        lateinit var imagenAdapter: ImagenAdapter
-        lateinit var fallasList: MutableList<Falla>
+//        lateinit var imagenAdapter: ImagenAdapter
+       lateinit var fallasList: MutableList<Falla>
         lateinit var imagesEncodedList: ArrayList<String>
-        lateinit var dialog: Dialog
+
         lateinit var recyclerMain: RecyclerView
         lateinit var recyclerDialog: RecyclerView
     }
@@ -61,8 +62,9 @@ class ReporteActivity :
     }
 
     private fun buildDialog() {
-
-        imagenAdapter = ImagenAdapter()
+        dialog = FallaDialogCustom()
+        dialog.show(supportFragmentManager,"custom dialog")
+        /*imagenAdapter = ImagenAdapter()
 
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -106,9 +108,11 @@ class ReporteActivity :
             selectImage()
         }
         dialog.show()
+
+         */
     }
 
-    private fun setDialogRecyclerData() {
+  /*  private fun setDialogRecyclerData() {
         imagenAdapter = ImagenAdapter()
         imagenAdapter.submitList(imagesEncodedList)
         recyclerDialog.apply {
@@ -117,6 +121,8 @@ class ReporteActivity :
             adapter = imagenAdapter
         }
     }
+
+   */
 
     private fun setRecyclerData() {
         fallaAdapter = FallaAdapter()
@@ -139,6 +145,8 @@ class ReporteActivity :
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Selecciona fotos"), 100)
     }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -164,7 +172,7 @@ class ReporteActivity :
                     imagesEncodedList.add(imagePath!!)
                     //do something with the image (save it to some directory or whatever you need to do with it here)
                 }
-                setDialogRecyclerData()
+                //setDialogRecyclerData()
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -206,6 +214,7 @@ class ReporteActivity :
         val btnProblema = findViewById<Button>(R.id.btnProblema)
         val selectImg = findViewById<TextView>(R.id.selectImg)
         val takeImg = findViewById<TextView>(R.id.takeImg)
+
         imagesEncodedList = ArrayList()
         //val Asunto = findViewById<EditText>(R.id.inputAsunto)
         //val tecnico = findViewById<EditText>(R.id.inputTecnico)
