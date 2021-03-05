@@ -1,9 +1,10 @@
-package scos.app.bitacora
+package scos.app.bitacora.mainactivities
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import scos.app.bitacora.R
 
 
 class SplashActivity : AppCompatActivity() {

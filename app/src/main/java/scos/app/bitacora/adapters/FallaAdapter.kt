@@ -1,18 +1,20 @@
-package scos.app.bitacora
+package scos.app.bitacora.adapters
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import scos.app.bitacora.forms.FormFallaActivity
-import scos.app.bitacora.forms.ViewFallaActivity
+import scos.app.bitacora.modelos.Falla
+import scos.app.bitacora.R
+import scos.app.bitacora.forms.ReporteActivity
 
 class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -51,37 +53,49 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, FormFallaActivity::class.java)
-                intent.apply {
-                    putExtra("position", adapterPosition)
-                }
-                itemView.context.startActivity(intent)
+                editar()
             }
             itemView.setOnLongClickListener {
                 MaterialAlertDialogBuilder(itemView.context).setTitle(
                     "Falla: " + fallaTxt.text.toString().toUpperCase()
-                ).setMessage("¿Qué desea hacer?").setNeutralButton("Ver") { _, _ ->
-                    //En construcción
-                }.setPositiveButton("Editar") { _, _ ->
-                    //En construcción
-                }.setNegativeButton("Eliminar") { _, _ ->
-                    FormFallaActivity.fallasList.removeAt(adapterPosition)
-                    FormFallaActivity.fallaAdapter = FallaAdapter()
-                    FormFallaActivity.fallaAdapter.submitList(FormFallaActivity.fallasList)
-                    FormFallaActivity.recycler.apply {
-                        layoutManager = GridLayoutManager(context, 1)
-                        adapter = FormFallaActivity.fallaAdapter
-                    }
-                }.show()
+                ).setMessage("¿Qué desea hacer?")
+                    .setPositiveButton("Editar") { _, _ ->
+                        editar()
+                    }.setNegativeButton("Eliminar") { _, _ ->
+                        eliminar()
+                    }.show()
                 return@setOnLongClickListener true
-                 }
+            }
+        }
+
+        private fun editar() {
+            Toast.makeText(itemView.context, "En construccion", Toast.LENGTH_SHORT).show()
+        }
+
+        private fun eliminar() {
+            MaterialAlertDialogBuilder(itemView.context)
+                .setTitle("Eliminar problema")
+                .setMessage("¿Seguro que quiere eliminar el problema?")
+                .setPositiveButton("Eliminar") { _, _ ->
+                    deleteAndUpdateUI()
+                }.setNegativeButton("Cancelar") { _, _ ->
+                }.show()
+        }
+
+        private fun deleteAndUpdateUI() {
+            items.removeAt(adapterPosition)
+            ReporteActivity.fallaAdapter = FallaAdapter()
+            ReporteActivity.fallaAdapter.submitList(items)
+            ReporteActivity.recyclerMain.apply {
+                layoutManager = GridLayoutManager(itemView.context, 1)
+                adapter = ReporteActivity.fallaAdapter
+            }
         }
 
         fun bind(falla: Falla) {
             fallaTxt.text = falla.getFalla()
             descrTxt.text = falla.getFallaDesc()
-            itemImagen.setImageURI(Uri.parse(items[adapterPosition].getFallaUri()))
-            Log.d("URI", falla.getFallaUri())
+            itemImagen.setImageURI(Uri.parse(items[adapterPosition].getUris()[0]))
         }
     }
 }

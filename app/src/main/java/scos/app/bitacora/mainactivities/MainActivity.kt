@@ -1,4 +1,4 @@
-package scos.app.bitacora
+package scos.app.bitacora.mainactivities
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -7,19 +7,18 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import scos.app.bitacora.forms.FormFallaActivity
+import scos.app.bitacora.R
+import scos.app.bitacora.forms.ReporteActivity
+import scos.app.bitacora.modelos.Falla
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -127,7 +126,7 @@ class MainActivity :
         val bar = findViewById<MaterialToolbar>(R.id.topAppBar)
         val btnfalla = findViewById<MaterialButton>(R.id.btnReporteFalla)
         btnfalla.setOnClickListener {
-            startActivity(Intent(this, FormFallaActivity::class.java).apply {
+            startActivity(Intent(this, ReporteActivity::class.java).apply {
                 putExtra("insert", true)
             })
             Log.d("click","hey")

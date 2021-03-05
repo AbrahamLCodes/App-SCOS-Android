@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="100dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_predet_img" />
 
         </LinearLayout>
