@@ -3,4 +3,6 @@
     <string name="link1"><u>Convertir en PDF</u></string>
     <string name="link2"><u>Salir</u></string>
     <string name="link3"><u>Seleccionar una foto</u></string>
+    <string name="bodyPrueba">La pluma se queda atorada en la parte superior de quedándose abierta, se verifican cableados y configuración encontrando que el sistema de detección de vehículos está demasiado sensible detectando casi cualquier cosa metálica, por lo que este lo toma como si un vehículo estuviera sobre el impidiendo que la pluma baje, se calibro la sensibilidad para impedir que esto se presente nuevamente.</string>
+    <string name="bodyPrueba2">Se detectaron cableados desorganizados y terminales en mal (se recomienda cambio, organizado de cables y cambio de terminales en estos).</string>
 </resources>

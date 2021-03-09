@@ -12,6 +12,7 @@ import scos.app.bitacora.R
 import scos.app.bitacora.adapters.FallaAdapter
 import scos.app.bitacora.dialogs.FallaDialogCustom
 import scos.app.bitacora.modelos.Falla
+import scos.app.bitacora.pdfservices.PdfMaker
 
 class ReporteActivity :
     AppCompatActivity(),
@@ -30,6 +31,7 @@ class ReporteActivity :
         lateinit var fallaAdapter: FallaAdapter
         lateinit var fallasList: MutableList<Falla>
         lateinit var recyclerMain: RecyclerView
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,19 @@ class ReporteActivity :
             when (v.id) {
                 R.id.btnProblema -> {
                     buildDialog()
+                }
+                R.id.makePdf -> {
+                    Toast.makeText(applicationContext, "Creando PDF", Toast.LENGTH_SHORT).show()
+                    Thread {
+                        PdfMaker(applicationContext, contentResolver).makePDF()
+                        this.runOnUiThread {
+                            Toast.makeText(
+                                this,
+                                "PDF Creado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }.start()
                 }
             }
         }
@@ -79,7 +94,7 @@ class ReporteActivity :
     private fun initComponents() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val btnProblema = findViewById<Button>(R.id.btnProblema)
-        val selectImg = findViewById<TextView>(R.id.selectImg)
+        val makePdf = findViewById<TextView>(R.id.makePdf)
         val takeImg = findViewById<TextView>(R.id.takeImg)
 
         recyclerMain = findViewById(R.id.recycler)
@@ -93,7 +108,7 @@ class ReporteActivity :
         }
 
         btnProblema.setOnClickListener(this)
-        selectImg.setOnClickListener(this)
+        makePdf.setOnClickListener(this)
         takeImg.setOnClickListener(this)
 
         if (!insert!!) {
