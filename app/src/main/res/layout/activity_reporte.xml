@@ -33,14 +33,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@drawable/shape_input"
-                android:hint="ID folio"
+                android:hint="Folio"
                 android:padding="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputId"
+                    android:id="@+id/folio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica" />
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -52,10 +53,27 @@
                 android:padding="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputAsunto"
+                    android:id="@+id/asunto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica" />
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_input"
+                android:hint="Administrador"
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -67,12 +85,44 @@
                 android:padding="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputTecnico"
+                    android:id="@+id/tecnico"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/helvetica" />
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="textCapSentences" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_input"
+                android:hint="Tel. Técnico"
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/celTecnico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_input"
+                android:hint="Fraccionamiento"
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fracc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/helvetica"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <LinearLayout
@@ -90,29 +140,26 @@
                     android:fontFamily="@font/helvetica"
                     android:text="añadir un problema"
                     android:textSize="12sp" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:gravity="center"
                     android:text="Problemas:"
                     android:textColor="@color/black"
-                    android:gravity="center"
-                    android:layout_marginVertical="10dp"
-                    android:textSize="30sp"
-                    />
+                    android:textSize="30sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-
+                    android:layout_height="match_parent"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
 
                 <TextView
                     android:id="@+id/makePdf"

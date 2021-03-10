@@ -1,6 +1,5 @@
 package scos.app.bitacora.forms
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -18,12 +17,14 @@ class ReporteActivity :
     AppCompatActivity(),
     View.OnClickListener {
     private var imagenUpdloaded = false
-    private var insert: Boolean? = null
-    private var position: Int? = null
 
-    private lateinit var inputProblema: TextView
-    private lateinit var inputDesc: TextView
-    private lateinit var imagen: ImageView
+    //Fields
+    private lateinit var folio: EditText
+    private lateinit var asunto: EditText
+    private lateinit var admin: EditText
+    private lateinit var tecnico: EditText
+    private lateinit var cel: EditText
+    private lateinit var fracc: EditText
     private lateinit var dialog: FallaDialogCustom
 
 
@@ -47,19 +48,56 @@ class ReporteActivity :
                     buildDialog()
                 }
                 R.id.makePdf -> {
-                    Toast.makeText(applicationContext, "Creando PDF", Toast.LENGTH_SHORT).show()
-                    Thread {
-                        PdfMaker(applicationContext, contentResolver).makePDF()
-                        this.runOnUiThread {
-                            Toast.makeText(
-                                this,
-                                "PDF Creado",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }.start()
+                    makeToast("Creando PDF")
+                    if (checkFields()) {
+                        Thread {
+                            PdfMaker(
+                                applicationContext,
+                                contentResolver,
+                                folio.text.toString(),
+                                asunto.text.toString(),
+                                admin.text.toString(),
+                                tecnico.text.toString(),
+                                cel.text.toString(),
+                                fracc.text.toString()
+                            ).makePDF()
+                            this.runOnUiThread {
+                                makeToast("PDF Creado")
+                            }
+                        }.start()
+                    }
                 }
             }
+        }
+    }
+
+    private fun checkFields(): Boolean {
+        if (folio.text.toString() == "") {
+            makeToast("Introduce un folio")
+            folio.requestFocus()
+            return false
+        } else if (asunto.text.toString() == "") {
+            makeToast("Introduce el asunto")
+            asunto.requestFocus()
+            return false
+        } else if (admin.text.toString() == "") {
+            makeToast("Introduce el administrador cliente")
+            admin.requestFocus()
+            return false
+        } else if (tecnico.text.toString() == "") {
+            makeToast("Introduce el responsable")
+            tecnico.requestFocus()
+            return false
+        } else if (cel.text.toString() == "") {
+            makeToast("Introduce el Cel. del responsable")
+            cel.requestFocus()
+            return false
+        } else if (fracc.text.toString() == "") {
+            makeToast("Introduce el fraccionamiento")
+            fracc.requestFocus()
+            return false
+        } else {
+            return true
         }
     }
 
@@ -84,37 +122,36 @@ class ReporteActivity :
         Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
     }
 
-    private fun setComponents(position: Int) {
-        val falla = fallasList[position]
-        inputProblema.text = falla.getFalla()
-        inputDesc.text = falla.getFallaDesc()
-        imagen.setImageURI(Uri.parse(falla.getUris()[0]))
-    }
-
     private fun initComponents() {
+
+        //Fields
+        folio = findViewById(R.id.folio)
+        asunto = findViewById(R.id.asunto)
+        admin = findViewById(R.id.admin)
+        tecnico = findViewById(R.id.tecnico)
+        cel = findViewById(R.id.celTecnico)
+        fracc = findViewById(R.id.fracc)
+
+        //Buttons
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         val btnProblema = findViewById<Button>(R.id.btnProblema)
         val makePdf = findViewById<TextView>(R.id.makePdf)
         val takeImg = findViewById<TextView>(R.id.takeImg)
 
+        //Collections
         recyclerMain = findViewById(R.id.recycler)
         fallasList = ArrayList()
 
-        insert = intent.getBooleanExtra("insert", false)
-
+        //Setting up Click Events
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             finish()
         }
-
         btnProblema.setOnClickListener(this)
         makePdf.setOnClickListener(this)
         takeImg.setOnClickListener(this)
 
-        if (!insert!!) {
-            position = intent.getIntExtra("position", 0)
-            setComponents(position!!)
-        }
+        //Initializating collections
         setRecyclerData()
     }
 }
