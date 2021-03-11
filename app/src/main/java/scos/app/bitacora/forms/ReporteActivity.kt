@@ -1,5 +1,8 @@
 package scos.app.bitacora.forms
 
+import android.app.Activity
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -7,16 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import scos.app.bitacora.R
 import scos.app.bitacora.adapters.FallaAdapter
+import scos.app.bitacora.dialogs.Dialog_PDF_Name
 import scos.app.bitacora.dialogs.FallaDialogCustom
 import scos.app.bitacora.modelos.Falla
 import scos.app.bitacora.pdfservices.PdfMaker
+import kotlin.properties.Delegates
 
 class ReporteActivity :
     AppCompatActivity(),
     View.OnClickListener {
     private var imagenUpdloaded = false
+    private var pdfName = ""
 
     //Fields
     private lateinit var folio: EditText
@@ -26,12 +34,18 @@ class ReporteActivity :
     private lateinit var cel: EditText
     private lateinit var fracc: EditText
     private lateinit var dialog: FallaDialogCustom
+    private lateinit var dialog2: Dialog_PDF_Name
+    private lateinit var btnProblema: Button
+    private lateinit var txtProblema: TextView
+    private lateinit var toolbar: Toolbar
 
 
     companion object {
         lateinit var fallaAdapter: FallaAdapter
         lateinit var fallasList: MutableList<Falla>
         lateinit var recyclerMain: RecyclerView
+        lateinit var pdfName: String
+        var isfallaIntent by Delegates.notNull<Boolean>()
 
     }
 
@@ -41,30 +55,24 @@ class ReporteActivity :
         initComponents()
     }
 
+    override fun onBackPressed() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Salir")
+            .setMessage("¿Seguro que quiere Salir del registro?")
+            .setPositiveButton("si"){dialog, which-> finish()}
+            .setNegativeButton("no"){dialog, which-> closeOptionsMenu()}
+            .show()
+    }
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
                 R.id.btnProblema -> {
                     buildDialog()
                 }
+                R.id.takeImg->{finish()}
                 R.id.makePdf -> {
-                    makeToast("Creando PDF")
                     if (checkFields()) {
-                        Thread {
-                            PdfMaker(
-                                applicationContext,
-                                contentResolver,
-                                folio.text.toString(),
-                                asunto.text.toString(),
-                                admin.text.toString(),
-                                tecnico.text.toString(),
-                                cel.text.toString(),
-                                fracc.text.toString()
-                            ).makePDF()
-                            this.runOnUiThread {
-                                makeToast("PDF Creado")
-                            }
-                        }.start()
+                        buildDialogName()
                     }
                 }
             }
@@ -96,14 +104,20 @@ class ReporteActivity :
             makeToast("Introduce el fraccionamiento")
             fracc.requestFocus()
             return false
-        } else {
+        }
+        else {
             return true
         }
     }
 
     private fun buildDialog() {
-        dialog = FallaDialogCustom(null, null)
+        dialog = FallaDialogCustom(null, null, isfallaIntent)
         dialog.show(supportFragmentManager, "custom dialog")
+    }
+    private fun buildDialogName(){
+        dialog2 = Dialog_PDF_Name(folio.text.toString(),asunto.text.toString(),admin.text.toString(),tecnico.text.toString(),cel.text.toString(),fracc.text.toString())
+        dialog2.show(supportFragmentManager,"custom dialog 2")
+
     }
 
     private fun setRecyclerData() {
@@ -121,20 +135,30 @@ class ReporteActivity :
     private fun makeToast(mensaje: String) {
         Toast.makeText(applicationContext, mensaje, Toast.LENGTH_SHORT).show()
     }
+    private fun checkIsFalla(){
+        if (!isfallaIntent){
+            //configurar solucion
+            btnProblema.setText("Añadir Solucion")
+            txtProblema.setText("Soluciones:")
+            toolbar.setTitle("Registro de Solucion")
+        }
+
+    }
 
     private fun initComponents() {
 
         //Fields
+        txtProblema = findViewById(R.id.txtProblema)
         folio = findViewById(R.id.folio)
         asunto = findViewById(R.id.asunto)
         admin = findViewById(R.id.admin)
         tecnico = findViewById(R.id.tecnico)
         cel = findViewById(R.id.celTecnico)
         fracc = findViewById(R.id.fracc)
-
+        isfallaIntent = intent.getBooleanExtra("isfalla",true)
         //Buttons
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val btnProblema = findViewById<Button>(R.id.btnProblema)
+        toolbar = findViewById(R.id.toolbar)
+        btnProblema = findViewById(R.id.btnProblema)
         val makePdf = findViewById<TextView>(R.id.makePdf)
         val takeImg = findViewById<TextView>(R.id.takeImg)
 
@@ -153,5 +177,6 @@ class ReporteActivity :
 
         //Initializating collections
         setRecyclerData()
+        checkIsFalla()
     }
 }

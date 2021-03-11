@@ -31,10 +31,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="12dp"
                 android:hint="Folio"
-                android:padding="10dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/folio"
@@ -47,10 +47,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
+                android:layout_marginHorizontal="10dp"
                 android:hint="Asunto"
-                android:padding="10dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/asunto"
@@ -63,10 +62,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
+                android:layout_marginHorizontal="10dp"
                 android:hint="Administrador"
-                android:padding="10dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/admin"
@@ -79,10 +77,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
+                android:layout_marginHorizontal="10dp"
                 android:hint="Tecnico/ Ingeniero Responsable"
-                android:padding="10dp">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tecnico"
@@ -95,11 +92,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
-                android:hint="Tel. Técnico"
-                android:padding="10dp">
-
+                android:layout_marginHorizontal="10dp"
+                android:hint="Tel. Técnico">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/celTecnico"
                     android:layout_width="match_parent"
@@ -110,18 +104,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/shape_input"
                 android:hint="Fraccionamiento"
-                android:padding="10dp">
-
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="match_parent">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fracc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica"
-                    android:inputType="textCapSentences" />
+                    android:layout_height="match_parent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -136,29 +126,33 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="0dp"
                     android:fontFamily="@font/helvetica"
                     android:text="añadir un problema"
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/txtProblema"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
                     android:gravity="center"
                     android:text="Problemas:"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:background="@drawable/background_recycler"
+                    android:layout_height="270dp"
+                    android:padding="15dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <TextView

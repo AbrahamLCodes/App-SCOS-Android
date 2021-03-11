@@ -70,7 +70,7 @@ class FallaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun editar() {
-            FallaDialogCustom(adapterPosition, items[adapterPosition])
+            FallaDialogCustom(adapterPosition, items[adapterPosition],ReporteActivity.isfallaIntent)
                 .show(supportFragmentManager(), "Editar falla")
         }
 

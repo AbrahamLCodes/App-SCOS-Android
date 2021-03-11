@@ -119,13 +119,13 @@ class MainActivity :
         val btnfalla = findViewById<MaterialButton>(R.id.btnReporteFalla)
         val btnSolucion = findViewById(R.id.btnReporteSolucion) as MaterialButton
         btnSolucion.setOnClickListener {
-            startActivity(Intent(this, FormSolucionActivity::class.java).apply {
-                putExtra("insert", true)
+            startActivity(Intent(this, ReporteActivity::class.java).apply {
+                putExtra("isfalla", false)
             })
         }
         btnfalla.setOnClickListener {
             startActivity(Intent(this, ReporteActivity::class.java).apply {
-                putExtra("insert", true)
+                putExtra("isfalla", true)
             })
             Log.d("click","hey")
         }

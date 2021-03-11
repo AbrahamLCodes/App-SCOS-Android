@@ -25,7 +25,10 @@ class PdfMaker(
     private val admin: String,
     private val tecnico: String,
     private val cel: String,
-    private val fracc: String
+    private val fracc: String,
+    private val isFalla: Boolean,
+    private val  pdfName: String,
+    private val date: String
 ) {
 
     fun makePDF() {
@@ -33,7 +36,7 @@ class PdfMaker(
         val document = Document(PageSize.A4, 36f, 36f, 108f, 140f)
         document.top(30f)
 
-        val file = File(Environment.getExternalStorageDirectory(), "/Hello.pdf")
+        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/${pdfName}.pdf")
         val writer = PdfWriter.getInstance(document, FileOutputStream(file))
 
         document.open()
@@ -114,7 +117,7 @@ class PdfMaker(
         ColumnText.showTextAligned(
             writer.directContent,
             Element.ALIGN_RIGHT,
-            Phrase("Chihuahua, Chihuahua; a 9 de marzo del 2021"),// falta la fecha
+            Phrase(date),// falta la fecha
             document.right(),
             document.top() - 20,
             0f

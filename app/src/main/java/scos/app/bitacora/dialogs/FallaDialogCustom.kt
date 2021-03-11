@@ -21,17 +21,17 @@ import scos.app.bitacora.adapters.ImagenAdapter
 import scos.app.bitacora.forms.ReporteActivity
 import scos.app.bitacora.modelos.Falla
 import java.lang.Exception
+import kotlin.properties.Delegates
 
-class FallaDialogCustom(position: Int?, falla: Falla?) : DialogFragment(), View.OnClickListener {
+class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : DialogFragment(), View.OnClickListener {
 
     private lateinit var inputProblema: EditText
     private lateinit var selecImageText: TextView
     private lateinit var inputDesc: EditText
-
+    private val isfalla = isfalla
     private lateinit var recyclerDialog: RecyclerView
     private lateinit var imagesEncodedList: ArrayList<String>
     private lateinit var imagenAdapter: ImagenAdapter
-
     private var position = position
     private var falla = falla
 
@@ -195,7 +195,7 @@ class FallaDialogCustom(position: Int?, falla: Falla?) : DialogFragment(), View.
         selecImageText = v.findViewById(R.id.selectImg) as TextView
         inputProblema = v.findViewById(R.id.inputproblema) as EditText
         inputDesc = v.findViewById(R.id.textArea_information) as EditText
-
+        val txtSolcuion = v.findViewById(R.id.txtSolucionHeader) as TextView
         imagesEncodedList = ArrayList()
         btnCanel.setOnClickListener(this)
         btnConfrim.setOnClickListener(this)
@@ -204,6 +204,11 @@ class FallaDialogCustom(position: Int?, falla: Falla?) : DialogFragment(), View.
 
         if (falla != null) {
             setUpComponents()
+        }
+        if (!isfalla){
+            btnConfrim.setText("agregar Solcuion")
+            txtSolcuion.setText("Escriba uno de las solciones halladas y selecciona su respectiva imagen")
+
         }
     }
 }
