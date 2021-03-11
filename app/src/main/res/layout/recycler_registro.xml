@@ -16,39 +16,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3"
             android:gravity="center|fill_horizontal"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:weightSum="3">
 
 
             <TextView
                 android:id="@+id/falla"
-                android:layout_margin="3dp"
-                android:layout_weight="1.2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="problema 1"
-                android:textSize="10sp"
-                android:gravity="center"
+                android:layout_margin="3dp"
+                android:layout_weight="1.2"
                 android:fontFamily="@font/helvetica"
-                android:textColor="@color/black" />
+                android:gravity="center"
+                android:text="problema 1"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
 
             <TextView
-                android:padding="6dp"
                 android:id="@+id/txtdescription"
-                android:layout_weight=".8"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM"
-                />
+                android:layout_weight=".8"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM" />
+
             <ImageView
-                android:padding="20dp"
                 android:id="@+id/imagenItem"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="100dp"
+                android:layout_weight="1"
+                android:padding="20dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_predet_img" />
 

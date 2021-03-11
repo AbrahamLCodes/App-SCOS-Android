@@ -7,11 +7,5 @@
             android:icon="@android:drawable/ic_dialog_info"
             android:id="@+id/item1"
             android:title="Info" />
-
-        <item
-            android:icon="@drawable/ic_logout"
-            android:id="@+id/item2"
-            android:title="salir" />
-
     </group>
 </menu>

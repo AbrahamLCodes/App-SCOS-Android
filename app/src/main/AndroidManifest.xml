@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="scos.app.bitacora">
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_scos_circle"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wireframing">
-
-        <activity android:name=".forms.ReporteActivity" />
-        <activity android:name=".forms.FormSolucionActivity"/>
-        <activity android:name=".mainactivities.MainActivity"  />
-        <activity android:name=".mainactivities.SplashActivity">
+        <activity
+            android:name=".mainactivities.InfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mainactivities.ReporteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mainactivities.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".mainactivities.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

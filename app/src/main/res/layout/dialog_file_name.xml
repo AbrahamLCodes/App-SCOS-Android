@@ -21,6 +21,7 @@
             android:id="@+id/inputNamePdf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inputType="textCapSentences"
             android:hint="Nombre del pdf"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,7 +43,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:layout_weight="1"
-            android:text="Convertir"
+            android:text="Crear"
             android:id="@+id/btnConvertir"
             android:layout_marginStart="10dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"

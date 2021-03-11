@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import scos.app.bitacora.R
-import java.util.ArrayList
+import java.util.*
 
 class ImagenAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

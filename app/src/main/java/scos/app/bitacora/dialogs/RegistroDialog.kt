@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import scos.app.bitacora.R
-import scos.app.bitacora.adapters.FallaAdapter
+import scos.app.bitacora.adapters.RegistroAdapter
 import scos.app.bitacora.adapters.ImagenAdapter
-import scos.app.bitacora.forms.ReporteActivity
-import scos.app.bitacora.modelos.Falla
-import java.lang.Exception
-import kotlin.properties.Delegates
+import scos.app.bitacora.mainactivities.ReporteActivity
+import scos.app.bitacora.modelos.Registro
 
-class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : DialogFragment(), View.OnClickListener {
+class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : DialogFragment(),
+    View.OnClickListener {
 
     private lateinit var inputProblema: EditText
     private lateinit var selecImageText: TextView
@@ -33,14 +32,14 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
     private lateinit var imagesEncodedList: ArrayList<String>
     private lateinit var imagenAdapter: ImagenAdapter
     private var position = position
-    private var falla = falla
+    private var falla = registro
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_detallle, container, false)
+        return inflater.inflate(R.layout.registro_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +72,7 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
 
     private fun insert() {
         ReporteActivity.fallasList.add(
-            Falla(
+            Registro(
                 inputProblema.text.toString(),
                 inputDesc.text.toString(),
                 imagesEncodedList
@@ -83,7 +82,7 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
     }
 
     private fun update() {
-        ReporteActivity.fallasList[position!!] = Falla(
+        ReporteActivity.fallasList[position!!] = Registro(
             inputProblema.text.toString(),
             inputDesc.text.toString(),
             imagesEncodedList
@@ -92,11 +91,11 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
     }
 
     private fun updateReporteUI() {
-        ReporteActivity.fallaAdapter = FallaAdapter()
-        ReporteActivity.fallaAdapter.submitList(ReporteActivity.fallasList)
+        ReporteActivity.registroAdapter = RegistroAdapter()
+        ReporteActivity.registroAdapter.submitList(ReporteActivity.fallasList)
         ReporteActivity.recyclerMain.apply {
             layoutManager = GridLayoutManager(context, 1)
-            adapter = ReporteActivity.fallaAdapter
+            adapter = ReporteActivity.registroAdapter
         }
     }
 
@@ -140,21 +139,18 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
                 if (resultCode == Activity.RESULT_OK) {
                     if (data != null) {
                         if (data.clipData != null) {
-                            val count =
-                                data.clipData!!.itemCount //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                            var i = 0
-                            while (i < count) {
+                           var i = 0
+                            while (i < 2) {
                                 val imageUri = data.clipData!!.getItemAt(i).uri
                                 Log.d("COUNTER", "Posición: $i")
                                 imagesEncodedList.add(imageUri.toString())
                                 i++
                             }
+                        } else {
+                            val imagePath = data.data
+                            imagesEncodedList.add(imagePath.toString())
                         }
                     }
-                } else if (data!!.data != null) {
-                    val imagePath = data.data!!.path
-                    imagesEncodedList.add(imagePath!!)
-                    //do something with the image (save it to some directory or whatever you need to do with it here)
                 }
                 setRecyclerData()
             }
@@ -205,10 +201,10 @@ class FallaDialogCustom(position: Int?, falla: Falla?, isfalla: Boolean) : Dialo
         if (falla != null) {
             setUpComponents()
         }
-        if (!isfalla){
-            btnConfrim.setText("agregar Solcuion")
-            txtSolcuion.setText("Escriba uno de las solciones halladas y selecciona su respectiva imagen")
-
+        if (!isfalla) {
+            btnConfrim.text = "agregar Solcuion"
+            txtSolcuion.text =
+                "Escriba uno de las solciones halladas y selecciona su respectiva imagen"
         }
     }
 }

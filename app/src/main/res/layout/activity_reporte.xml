@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".forms.ReporteActivity">
+    tools:context=".mainactivities.ReporteActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -33,8 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="12dp"
-                android:hint="Folio"
-                >
+                android:hint="Folio">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/folio"
@@ -48,8 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:hint="Asunto"
-                >
+                android:hint="Asunto">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/asunto"
@@ -63,8 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:hint="Administrador"
-                >
+                android:hint="Administrador">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/admin"
@@ -78,8 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:hint="Tecnico/ Ingeniero Responsable"
-                >
+                android:hint="Responsable del reporte">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tecnico"
@@ -93,25 +89,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:hint="Tel. Técnico">
+                android:hint="Tel. del Responsable">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/celTecnico"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/helvetica"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:maxLength="10"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:hint="Fraccionamiento"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
-                android:layout_height="match_parent">
+                android:hint="Fraccionamiento/Colonia">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fracc"
+                    android:inputType="textCapSentences"
                     android:layout_width="match_parent"
-                    android:fontFamily="@font/helvetica"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/helvetica" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -144,8 +144,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
-                    android:background="@drawable/background_recycler"
                     android:layout_height="270dp"
+                    android:background="@drawable/background_recycler"
                     android:padding="15dp" />
             </LinearLayout>
 

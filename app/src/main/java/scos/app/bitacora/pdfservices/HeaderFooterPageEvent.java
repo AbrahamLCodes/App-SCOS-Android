@@ -50,7 +50,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             e.printStackTrace();
         }
         maimg.setAbsolutePosition(document.left(), 750f);
-        maimg.scalePercent(4f);
+        maimg.scaleAbsolute(120f,60f);
         try {
             document.add(maimg);
         } catch (DocumentException e) {
@@ -82,7 +82,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             e.printStackTrace();
         }
         maimg2.setAbsolutePosition((width / 2) - 200, (height / 2) - 239);
-        maimg2.scalePercent(15f);
+        maimg2.scaleAbsolute(400,425);
         try {
             document.add(maimg2);
         } catch (DocumentException e) {

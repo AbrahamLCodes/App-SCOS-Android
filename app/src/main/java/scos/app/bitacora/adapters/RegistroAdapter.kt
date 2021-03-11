@@ -12,16 +12,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import scos.app.bitacora.R
-import scos.app.bitacora.dialogs.SolucionDialogCustom
-import scos.app.bitacora.forms.FormSolucionActivity
-import scos.app.bitacora.modelos.Solucion
+import scos.app.bitacora.dialogs.RegistroDialog
+import scos.app.bitacora.mainactivities.ReporteActivity
+import scos.app.bitacora.modelos.Registro
 
-class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var items: MutableList<Solucion>
+
+class RegistroAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private lateinit var items: MutableList<Registro>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SolucionViewHolder(
+        return FallaViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_detalle,
+                R.layout.recycler_registro,
                 parent,
                 false
             )
@@ -30,7 +33,7 @@ class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SolucionAdapter.SolucionViewHolder -> {
+            is FallaViewHolder -> {
                 holder.bind(items[position])
             }
         }
@@ -39,7 +42,12 @@ class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         return items.size
     }
-    inner class SolucionViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    fun submitList(registros: List<Registro>) {
+        items = ArrayList(registros)
+    }
+
+    inner class FallaViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val fallaTxt: TextView = itemView.findViewById(R.id.falla)
         private val itemImagen: ImageView = itemView.findViewById(R.id.imagenItem)
         private val descrTxt: TextView = itemView.findViewById(R.id.txtdescription)
@@ -62,7 +70,7 @@ class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun editar() {
-            SolucionDialogCustom(adapterPosition, items[adapterPosition])
+            RegistroDialog(adapterPosition, items[adapterPosition], ReporteActivity.isfallaIntent)
                 .show(supportFragmentManager(), "Editar falla")
         }
 
@@ -77,12 +85,12 @@ class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun deleteAndUpdateUI() {
-            FormSolucionActivity.fallasList.removeAt(adapterPosition)
-            FormSolucionActivity.fallaAdapter = FallaAdapter()
-            FormSolucionActivity.fallaAdapter.submitList(FormSolucionActivity.fallasList)
-            FormSolucionActivity.recyclerMain.apply {
+            ReporteActivity.fallasList.removeAt(adapterPosition)
+            ReporteActivity.registroAdapter = RegistroAdapter()
+            ReporteActivity.registroAdapter.submitList(ReporteActivity.fallasList)
+            ReporteActivity.recyclerMain.apply {
                 layoutManager = GridLayoutManager(itemView.context, 1)
-                adapter = FormSolucionActivity.fallaAdapter
+                adapter = ReporteActivity.registroAdapter
             }
         }
 
@@ -90,11 +98,11 @@ class SolucionAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             return (itemView.context as FragmentActivity).supportFragmentManager
         }
 
-        fun bind(solucion: Solucion) {
-            fallaTxt.text = solucion.getSolucion()
-            descrTxt.text = solucion.getSolucionDescripcion()
+        fun bind(registro: Registro) {
+            fallaTxt.text = registro.getFalla()
+            descrTxt.text = registro.getFallaDesc()
             itemImagen.setImageURI(Uri.parse(items[adapterPosition].getUris()[0]))
         }
     }
-
 }
+

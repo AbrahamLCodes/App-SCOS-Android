@@ -2,7 +2,7 @@ package scos.app.bitacora.modelos
 
 import java.io.Serializable
 
-class Falla(
+class Registro(
     @JvmField private var falla: String,
     @JvmField private var fallaDesc: String,
     @JvmField private var uris: MutableList<String>

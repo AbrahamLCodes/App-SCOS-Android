@@ -42,49 +42,47 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
 
-
-
             <TextView
-                android:text="24/5/2020"
                 android:id="@+id/fecha"
-                android:background="@drawable/background_detalle"
-                android:textSize="20sp"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/helvetica"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_detalle"
+                android:fontFamily="@font/helvetica"
                 android:gravity="center"
-                android:layout_height="50dp"/>
+                android:padding="10dp"
+                android:text="24/5/2020"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginHorizontal="2dp"
                 android:background="@drawable/background_list"
                 android:elevation="2dp"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="20dp">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnReporteFalla"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginBottom="30dp"
-                app:strokeWidth="2dp"
-                android:textColor="@color/black"
-                android:text="Crear un Reporte de Falla"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                />
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnReporteSolucion"
+                    android:id="@+id/btnReporteFalla"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    app:strokeWidth="2dp"
+                    android:layout_marginBottom="30dp"
+                    android:text="Crear un Reporte de Falla"
                     android:textColor="@color/black"
-                    android:text="Crear un Reporte de Solucion"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReporteSolucion"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    />
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:text="Crear un Reporte de Solucion"
+                    android:textColor="@color/black"
+                    app:strokeWidth="2dp" />
 
             </LinearLayout>
         </LinearLayout>

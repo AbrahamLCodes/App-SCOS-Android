@@ -1,21 +1,21 @@
 package scos.app.bitacora.pdfservices
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.widget.Toast
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.*
 import com.itextpdf.text.pdf.draw.DottedLineSeparator
-import com.itextpdf.text.pdf.draw.LineSeparator
-import scos.app.bitacora.forms.ReporteActivity
-import scos.app.bitacora.modelos.Falla
+import scos.app.bitacora.mainactivities.ReporteActivity
+import scos.app.bitacora.modelos.Registro
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-
 
 class PdfMaker(
     private val context: Context,
@@ -27,16 +27,19 @@ class PdfMaker(
     private val cel: String,
     private val fracc: String,
     private val isFalla: Boolean,
-    private val  pdfName: String,
+    private val pdfName: String,
     private val date: String
 ) {
 
     fun makePDF() {
 
-        val document = Document(PageSize.A4, 36f, 36f, 108f, 140f)
+        val document = Document(PageSize.A4, 36f, 36f, 100f, 115f)
         document.top(30f)
 
-        val file = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/${pdfName}.pdf")
+        val file = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "/$pdfName.pdf"
+        )
         val writer = PdfWriter.getInstance(document, FileOutputStream(file))
 
         document.open()
@@ -49,15 +52,20 @@ class PdfMaker(
         }
         addLastContent(writer)
         document.close()
+
+        val activity = context as Activity
+        activity.runOnUiThread {
+            Toast.makeText(context, "PDF Creado", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun addFalla(document: Document, falla: Falla) {
+    private fun addFalla(document: Document, registro: Registro) {
 
         // Poniendo Bitmaps
         val bmpList = mutableListOf<Bitmap>()
 
 
-        for (imageUri in falla.getUris()) {
+        for (imageUri in registro.getUris()) {
             val bitmap = MediaStore.Images.Media.getBitmap(
                 this.contentResolver,
                 Uri.parse(imageUri)
@@ -70,9 +78,10 @@ class PdfMaker(
 
         for (imagenBmp in bmpList) {
             val stream = ByteArrayOutputStream()
-            imagenBmp.compress(Bitmap.CompressFormat.PNG, 5, stream)
+            imagenBmp.compress(Bitmap.CompressFormat.JPEG, 50, stream)
             val image = Image.getInstance(stream.toByteArray())
-            image.scaleAbsolute(130f, 240f)
+            //image.scaleToFit(100f, 100f)
+            image.widthPercentage = 100f
             cel.addElement(image)
             cel.addElement(Paragraph("\n"))
         }
@@ -82,8 +91,8 @@ class PdfMaker(
         tableImage.addCell(cel)
 
         val font = Font(Font.FontFamily.HELVETICA, 12f, Font.BOLD)
-        val p = Paragraph(falla.getFalla(), font)
-        val p1 = Paragraph(falla.getFallaDesc() + "\n\n")
+        val p = Paragraph(registro.getFalla(), font)
+        val p1 = Paragraph(registro.getFallaDesc() + "\n\n")
         p1.alignment = Element.ALIGN_JUSTIFIED
 
         val tableFalla = PdfPTable(floatArrayOf(70f, 30f))
@@ -95,29 +104,40 @@ class PdfMaker(
         celltext.addElement(p1)
         celltext.setPadding(1f)
         celltext.border = Rectangle.NO_BORDER
+        celltext.borderWidthBottom = 0.5f
 
         cellTable.addElement(tableImage)
         cellTable.setPadding(1f)
         cellTable.border = Rectangle.NO_BORDER
+        cellTable.borderWidthBottom = 0.5f
 
         tableFalla.addCell(celltext)
         tableFalla.addCell(cellTable)
         tableFalla.widthPercentage = 100f
         document.add(tableFalla)
-        document.add(Chunk(LineSeparator()))
     }
 
     private fun addStartingContent(document: Document, writer: PdfWriter) {
         document.add(Paragraph("\n\n$admin"))
         document.add(Paragraph("Administrador de $fracc"))
+        document.add(Paragraph("Asunto: $asunto"))
         document.add(Paragraph("Presente.-\n"))
-        document.add(Paragraph("Por medio del presente informo los hallazgos encontrados de: $asunto en $fracc"))
+        if (isFalla) {
+            document.add(Paragraph("Por medio del presente informo los hallazgos encontrados en el: $fracc"))
+        } else {
+            document.add(
+                Paragraph(
+                    "Por medio del presente informo las correciones aplicadas " +
+                            "para los hallazgos del reporte con folio: $folio"
+                )
+            )
+        }
         document.add(Chunk(DottedLineSeparator()))
 
         ColumnText.showTextAligned(
             writer.directContent,
             Element.ALIGN_RIGHT,
-            Phrase(date),// falta la fecha
+            Phrase("Chihuahua, Chih; a $date"),// falta la fecha
             document.right(),
             document.top() - 20,
             0f
@@ -152,7 +172,7 @@ class PdfMaker(
         ColumnText.showTextAligned(
             writer.directContent,
             Element.ALIGN_CENTER,
-            Paragraph("Cel. $cel"),
+            Paragraph("Cel. ${formatPhoneNumber(cel)}"),
             (width / 2) - 2,
             42f,
             0f
@@ -164,5 +184,22 @@ class PdfMaker(
         canvas.moveTo((width / 2) - 120, 70f)
         canvas.lineTo((width / 2) + 120, 70f)
         canvas.closePathStroke()
+    }
+
+    private fun formatPhoneNumber(number: String): String {
+        var number = number
+        number = number.substring(0, number.length - 4) + "-" + number.substring(
+            number.length - 4,
+            number.length
+        )
+        number = number.substring(0, number.length - 8) + ")" + number.substring(
+            number.length - 8,
+            number.length
+        )
+        number = number.substring(0, number.length - 12) + "(" + number.substring(
+            number.length - 12,
+            number.length
+        )
+        return number
     }
 }
