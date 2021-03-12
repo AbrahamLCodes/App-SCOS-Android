@@ -102,6 +102,11 @@ class ReporteActivity :
                 cel.requestFocus()
                 return false
             }
+            cel.text.toString().length < 10 -> {
+                makeToast("Introduce un número de 10 dígitos")
+                cel.requestFocus()
+                return false
+            }
             fracc.text.toString() == "" -> {
                 makeToast("Introduce el fraccionamiento")
                 fracc.requestFocus()

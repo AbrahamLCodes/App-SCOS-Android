@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.*
@@ -32,30 +33,37 @@ class PdfMaker(
 ) {
 
     fun makePDF() {
+        try {
+            val document = Document(PageSize.A4, 36f, 36f, 100f, 115f)
+            document.top(30f)
 
-        val document = Document(PageSize.A4, 36f, 36f, 100f, 115f)
-        document.top(30f)
+            val file = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                "/$pdfName.pdf"
+            )
+            val writer = PdfWriter.getInstance(document, FileOutputStream(file))
 
-        val file = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "/$pdfName.pdf"
-        )
-        val writer = PdfWriter.getInstance(document, FileOutputStream(file))
+            document.open()
+            writer.pageEvent = HeaderFooterPageEvent(context, folio)
 
-        document.open()
-        writer.pageEvent = HeaderFooterPageEvent(context, folio)
+            addStartingContent(document, writer)
+            //addContent
+            for (falla in ReporteActivity.fallasList) {
+                addFalla(document, falla)
+            }
+            addLastContent(writer)
+            document.close()
 
-        addStartingContent(document, writer)
-        //addContent
-        for (falla in ReporteActivity.fallasList) {
-            addFalla(document, falla)
-        }
-        addLastContent(writer)
-        document.close()
-
-        val activity = context as Activity
-        activity.runOnUiThread {
-            Toast.makeText(context, "PDF Creado", Toast.LENGTH_SHORT).show()
+            val activity = context as Activity
+            activity.runOnUiThread {
+                Toast.makeText(context, "PDF Creado", Toast.LENGTH_SHORT).show()
+            }
+        } catch (ex: Exception) {
+            val activity = context as Activity
+            activity.runOnUiThread {
+                Toast.makeText(context, "Error al crear PDF", Toast.LENGTH_SHORT).show()
+            }
+            ex.printStackTrace()
         }
     }
 
@@ -119,11 +127,11 @@ class PdfMaker(
 
     private fun addStartingContent(document: Document, writer: PdfWriter) {
         document.add(Paragraph("\n\n$admin"))
-        document.add(Paragraph("Administrador de $fracc"))
+        document.add(Paragraph("Administrador del fracc. $fracc"))
         document.add(Paragraph("Asunto: $asunto"))
         document.add(Paragraph("Presente.-\n"))
         if (isFalla) {
-            document.add(Paragraph("Por medio del presente informo los hallazgos encontrados en el: $fracc"))
+            document.add(Paragraph("Por medio del presente informo los hallazgos encontrados en el $fracc"))
         } else {
             document.add(
                 Paragraph(

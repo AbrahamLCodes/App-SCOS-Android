@@ -122,7 +122,7 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
                 inputDesc.requestFocus()
                 false
             }
-            imagesEncodedList.size == 0 -> {
+            imagesEncodedList.isEmpty() -> {
                 makeToast("Selecciona al menos una imagen")
                 false
             }
@@ -142,7 +142,6 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
                            var i = 0
                             while (i < 2) {
                                 val imageUri = data.clipData!!.getItemAt(i).uri
-                                Log.d("COUNTER", "Posición: $i")
                                 imagesEncodedList.add(imageUri.toString())
                                 i++
                             }

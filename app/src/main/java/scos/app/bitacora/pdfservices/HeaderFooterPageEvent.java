@@ -81,7 +81,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         } catch (BadElementException | IOException e) {
             e.printStackTrace();
         }
-        maimg2.setAbsolutePosition((width / 2) - 200, (height / 2) - 239);
+        maimg2.setAbsolutePosition((width / 2) - 200, (height / 2) - 250);
         maimg2.scaleAbsolute(400,425);
         try {
             document.add(maimg2);
