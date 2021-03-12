@@ -146,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="270dp"
                     android:background="@drawable/background_recycler"
-                    android:padding="15dp" />
+                    android:padding="5dp" />
             </LinearLayout>
 
             <LinearLayout

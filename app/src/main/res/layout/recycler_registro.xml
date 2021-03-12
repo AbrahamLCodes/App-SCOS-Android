@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="20px"
         app:cardElevation="3dp"
         app:strokeColor="#515151"
         app:strokeWidth="1dp">
@@ -19,8 +19,6 @@
             android:gravity="center|fill_horizontal"
             android:orientation="horizontal"
             android:weightSum="3">
-
-
             <TextView
                 android:id="@+id/falla"
                 android:layout_width="match_parent"
@@ -38,7 +36,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight=".8"
-                android:gravity="center"
                 android:padding="6dp"
                 android:text="LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM LOREM IPSUM" />
 

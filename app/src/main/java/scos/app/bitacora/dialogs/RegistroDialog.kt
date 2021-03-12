@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -16,8 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import scos.app.bitacora.R
-import scos.app.bitacora.adapters.RegistroAdapter
 import scos.app.bitacora.adapters.ImagenAdapter
+import scos.app.bitacora.adapters.RegistroAdapter
 import scos.app.bitacora.mainactivities.ReporteActivity
 import scos.app.bitacora.modelos.Registro
 
@@ -45,6 +46,14 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initComponents(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
     override fun onClick(v: View?) {
