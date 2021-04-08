@@ -3,10 +3,10 @@ package scos.app.bitacora.dialogs
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -21,13 +21,12 @@ import scos.app.bitacora.adapters.ImagenAdapter
 import scos.app.bitacora.mainactivities.ReporteActivity
 import scos.app.bitacora.modelos.Registro
 
-class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : DialogFragment(),
+class RegistroDialog(position: Int?, registro: Registro?) : DialogFragment(),
     View.OnClickListener {
 
     private lateinit var inputProblema: EditText
     private lateinit var selecImageText: TextView
     private lateinit var inputDesc: EditText
-    private val isfalla = isfalla
     private lateinit var recyclerDialog: RecyclerView
     private lateinit var imagesEncodedList: ArrayList<String>
     private lateinit var imagenAdapter: ImagenAdapter
@@ -39,12 +38,20 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.registro_dialog, container, false)
+        return inflater.inflate(R.layout.dialog_registro, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initComponents(view)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+        params.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
     override fun onClick(v: View?) {
@@ -190,7 +197,6 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
         selecImageText = v.findViewById(R.id.selectImg) as TextView
         inputProblema = v.findViewById(R.id.inputproblema) as EditText
         inputDesc = v.findViewById(R.id.textArea_information) as EditText
-        val txtSolcuion = v.findViewById(R.id.txtSolucionHeader) as TextView
         imagesEncodedList = ArrayList()
         btnCanel.setOnClickListener(this)
         btnConfrim.setOnClickListener(this)
@@ -199,11 +205,6 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
 
         if (falla != null) {
             setUpComponents()
-        }
-        if (!isfalla) {
-            btnConfrim.text = "agregar Solcuion"
-            txtSolcuion.text =
-                "Escriba uno de las solciones halladas y selecciona su respectiva imagen"
         }
     }
 }

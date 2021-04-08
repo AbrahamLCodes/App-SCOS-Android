@@ -71,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/helvetica"
                     android:text="Crear un Reporte de Falla"
                     android:textColor="@color/black"
                     app:strokeWidth="2dp" />
@@ -80,6 +81,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
+                    android:fontFamily="@font/helvetica"
                     android:text="Crear un Reporte de Solucion"
                     android:textColor="@color/black"
                     app:strokeWidth="2dp" />

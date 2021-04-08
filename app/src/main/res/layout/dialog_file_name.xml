@@ -8,21 +8,25 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:fontFamily="@font/helvetica"
         android:gravity="center"
         android:text="Escriba el nombre del archivo PDF"
         android:textColor="#101010"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="15dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:paddingHorizontal="10dp">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputNamePdf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textCapSentences"
-            android:hint="Nombre del pdf"/>
+            android:fontFamily="@font/helvetica"
+            android:inputType="textCapSentences" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -33,22 +37,24 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:text="Cancelar"
             android:id="@+id/btnCancelar"
-            android:layout_marginEnd="10dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_height="match_parent"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/helvetica"
+            android:text="Cancelar" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_weight="1"
-            android:text="Crear"
             android:id="@+id/btnConvertir"
-            android:layout_marginStart="10dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/helvetica"
+            android:text="Crear" />
     </LinearLayout>
 
 </LinearLayout>

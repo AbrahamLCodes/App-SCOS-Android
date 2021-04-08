@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -14,6 +15,7 @@ import scos.app.bitacora.dialogs.PdfNameDialog
 import scos.app.bitacora.dialogs.RegistroDialog
 import scos.app.bitacora.modelos.Registro
 import kotlin.properties.Delegates
+
 
 class ReporteActivity :
     AppCompatActivity(),
@@ -37,9 +39,7 @@ class ReporteActivity :
         lateinit var registroAdapter: RegistroAdapter
         lateinit var fallasList: MutableList<Registro>
         lateinit var recyclerMain: RecyclerView
-        lateinit var pdfName: String
         var isfallaIntent by Delegates.notNull<Boolean>()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,7 +119,7 @@ class ReporteActivity :
     }
 
     private fun buildDialog() {
-        dialog = RegistroDialog(null, null, isfallaIntent)
+        dialog = RegistroDialog(null, null)
         dialog.show(supportFragmentManager, "custom dialog")
     }
 
@@ -158,7 +158,7 @@ class ReporteActivity :
             //configurar solucion
             btnProblema.text = "Añadir Solucion"
             txtProblema.text = "Soluciones:"
-            toolbar.title = "Registro de Solucion"
+            toolbar.title = "Reporte de solución"
         }
     }
 

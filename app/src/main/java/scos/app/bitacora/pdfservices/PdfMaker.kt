@@ -34,7 +34,7 @@ class PdfMaker(
 
     fun makePDF() {
         try {
-            val document = Document(PageSize.A4, 36f, 36f, 100f, 115f)
+            val document = Document(PageSize.A4, 36f, 36f, 130f, 115f)
             document.top(30f)
 
             val file = File(
@@ -126,7 +126,7 @@ class PdfMaker(
     }
 
     private fun addStartingContent(document: Document, writer: PdfWriter) {
-        document.add(Paragraph("\n\n$admin"))
+        document.add(Paragraph("\n\n\n\n$admin"))
         document.add(Paragraph("Administrador del fracc. $fracc"))
         document.add(Paragraph("Asunto: $asunto"))
         document.add(Paragraph("Presente.-\n"))
@@ -147,7 +147,7 @@ class PdfMaker(
             Element.ALIGN_RIGHT,
             Phrase("Chihuahua, Chih; a $date"),// falta la fecha
             document.right(),
-            document.top() - 20,
+            document.top() - 60,
             0f
         )
     }

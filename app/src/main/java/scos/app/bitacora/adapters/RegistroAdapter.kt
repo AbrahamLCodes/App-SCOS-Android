@@ -70,7 +70,7 @@ class RegistroAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         private fun editar() {
-            RegistroDialog(adapterPosition, items[adapterPosition], ReporteActivity.isfallaIntent)
+            RegistroDialog(adapterPosition, items[adapterPosition])
                 .show(supportFragmentManager(), "Editar falla")
         }
 
