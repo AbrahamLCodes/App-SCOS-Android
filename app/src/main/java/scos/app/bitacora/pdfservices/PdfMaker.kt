@@ -2,6 +2,7 @@ package scos.app.bitacora.pdfservices
 
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -14,8 +15,8 @@ import com.itextpdf.text.pdf.draw.DottedLineSeparator
 import scos.app.bitacora.mainactivities.ReporteActivity
 import scos.app.bitacora.modelos.Registro
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
+import android.graphics.ImageDecoder
+import android.os.Build
 
 class PdfMaker(
     private val context: Context,
@@ -30,23 +31,27 @@ class PdfMaker(
     private val pdfName: String,
     private val date: String
 ) {
-
     fun makePDF() {
+        /*
+        * Este método de almacenamiento en la carpeta Downloads se tuvo que
+        * implementar debido a que cambiaron los permisos en Android 11
+        * */
+        val resolver = context.contentResolver
+        val values = ContentValues()
+        values.put(MediaStore.MediaColumns.DISPLAY_NAME, "/$pdfName.pdf")
+        values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+        values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
+        val uri = resolver.insert(MediaStore.Files.getContentUri("external"), values)
+        val outputStream = resolver.openOutputStream(uri!!)
 
+        //Seguimos con la creación del documento
         val document = Document(PageSize.A4, 36f, 36f, 100f, 115f)
         document.top(30f)
-
-        val file = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            "/$pdfName.pdf"
-        )
-        val writer = PdfWriter.getInstance(document, FileOutputStream(file))
-
+        val writer = PdfWriter.getInstance(document, outputStream)
         document.open()
         writer.pageEvent = HeaderFooterPageEvent(context, folio)
 
         addStartingContent(document, writer)
-        //addContent
         for (falla in ReporteActivity.fallasList) {
             addFalla(document, falla)
         }
@@ -60,17 +65,21 @@ class PdfMaker(
     }
 
     private fun addFalla(document: Document, registro: Registro) {
-
         // Poniendo Bitmaps
         val bmpList = mutableListOf<Bitmap>()
 
-
         for (imageUri in registro.getUris()) {
-            val bitmap = MediaStore.Images.Media.getBitmap(
-                this.contentResolver,
-                Uri.parse(imageUri)
-            )
-            bmpList.add(bitmap)
+            if (Build.VERSION.SDK_INT < 28) {
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    this.contentResolver,
+                    Uri.parse(imageUri)
+                )
+                bmpList.add(bitmap)
+            } else {
+                val source = ImageDecoder.createSource(this.contentResolver, Uri.parse(imageUri))
+                val bitmap = ImageDecoder.decodeBitmap(source)
+                bmpList.add(bitmap)
+            }
         }
 
         val tableImage = PdfPTable(1)
@@ -96,7 +105,6 @@ class PdfMaker(
         p1.alignment = Element.ALIGN_JUSTIFIED
 
         val tableFalla = PdfPTable(floatArrayOf(70f, 30f))
-
         val celltext = PdfPCell()
         val cellTable = PdfPCell()
 
@@ -122,6 +130,7 @@ class PdfMaker(
         document.add(Paragraph("Administrador de $fracc"))
         document.add(Paragraph("Asunto: $asunto"))
         document.add(Paragraph("Presente.-\n"))
+
         if (isFalla) {
             document.add(Paragraph("Por medio del presente informo los hallazgos encontrados en el: $fracc"))
         } else {
@@ -132,6 +141,7 @@ class PdfMaker(
                 )
             )
         }
+
         document.add(Chunk(DottedLineSeparator()))
 
         ColumnText.showTextAligned(
@@ -145,7 +155,6 @@ class PdfMaker(
     }
 
     private fun addLastContent(writer: PdfWriter) {
-
         val width = writer.pageSize.width
         val p = Phrase("Atentamente")
         val font = Font(Font.FontFamily.HELVETICA, 14f, Font.BOLD)
