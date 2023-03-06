@@ -66,9 +66,7 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
                         if (position != null && falla != null) {
                             Toast.makeText(context, "Actualizando...", Toast.LENGTH_SHORT).show()
                             update()
-                        } else {
-                            insert()
-                        }
+                        } else insert()
                         dismiss()
                     }
                 }
@@ -109,7 +107,6 @@ class RegistroDialog(position: Int?, registro: Registro?, isfalla: Boolean) : Di
     }
 
     private fun selectImage() {
-
         imagesEncodedList = ArrayList()
 
         val intent = Intent()

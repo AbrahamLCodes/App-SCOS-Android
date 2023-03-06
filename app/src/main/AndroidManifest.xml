@@ -11,7 +11,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Wireframing">
+        >
         <activity
             android:name=".mainactivities.InfoActivity"
             android:screenOrientation="portrait"/>
@@ -20,7 +20,8 @@
         <activity android:name=".mainactivities.MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".mainactivities.SplashActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
